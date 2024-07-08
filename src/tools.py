@@ -32,3 +32,12 @@ def get_nov_2008_info(content: BeautifulSoup) -> dict:
 
     info = {}
     info['tweet-text'] = full_tweet_structure.find("div", "desc-inner").p.contents[0].get_text().strip()
+    info['full-name'] = full_tweet_structure.find("div", "full-name").text.strip()
+    info['handle'] = full_tweet_structure.find("div", "screen-name").a.contents[0].get_text().strip()
+
+    time = full_tweet_structure.find("span", "entry-meta").text.strip().split('\n')[0]
+    datetime_object = datetime.strptime(time, "%I:%M %p %B %d, %Y")
+    info['date'] = datetime_object
+
+    return info
+
