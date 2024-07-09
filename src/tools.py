@@ -48,11 +48,11 @@ def get_nov_2008_info(content: BeautifulSoup) -> dict:
     full_tweet_structure = content.find("div", "desc")
 
     info = {}
-    info['tweet-text'] = full_tweet_structure.find("div", "desc-inner").p.contents[0].get_text().strip()
-    info['full-name'] = full_tweet_structure.find("div", "full-name").text.strip()
+    info['tweet-text'] = full_tweet_structure.find("div", "desc-inner").get_text().strip()
+    info['full-name'] = full_tweet_structure.find("div", "full-name").get_text().strip()
     info['handle'] = full_tweet_structure.find("div", "screen-name").a.contents[0].get_text().strip()
 
-    time = full_tweet_structure.find("span", "entry-meta").text.strip().split('\n')[0]
+    time = full_tweet_structure.find("span", "entry-meta").get_text().strip().split('\n')[0]
     datetime_object = datetime.strptime(time, "%I:%M %p %B %d, %Y")
     info['date'] = datetime_object
 
@@ -82,10 +82,10 @@ def get_nov_2009_info(content: BeautifulSoup) -> dict:
 
     info = {}
     info['tweet-text'] = full_tweet_structure.find("span", "entry-content").get_text().strip()
-    info['full-name'] = full_tweet_structure.find("div", "full-name").text.strip()
+    info['full-name'] = full_tweet_structure.find("div", "full-name").get_text().strip()
     info['handle'] = full_tweet_structure.find("a", "tweet-url screen-name").get_text().strip()
 
-    time = full_tweet_structure.find("span", "published").text.strip()
+    time = full_tweet_structure.find("span", "published").get_text().strip()
     datetime_object = datetime.strptime(resolve(time), "%I:%M %p %b %d, %Y")
     info['date'] = datetime_object
 
