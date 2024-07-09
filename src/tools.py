@@ -1,5 +1,13 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
+import re
+
+
+def resolve(s):
+    """
+    Helper function to resolve dates with letters, i.e, 1st, 2nd, 3rd
+    """
+    return re.sub(r"(\d)(st|nd|rd|th)", r"\1", s)
 
 def get_memento_datetime(response_headers: dict) -> datetime:
     """
@@ -50,3 +58,37 @@ def get_nov_2008_info(content: BeautifulSoup) -> dict:
 
     return info
 
+def get_nov_2009_info(content: BeautifulSoup) -> dict:
+    """
+    Extract all available info from a tweet with structure from around November 2009
+    
+    Parameters
+    ----------
+    content: BeautifulSoup
+        A BeautifulSoup object with the parsed content of a Tweet URI-M from around this time frame
+
+    Returns
+    ----------
+    dict
+        Dictionary containing all available information. At most, keys include the following:
+        tweet-text: The tweet body
+        full-name: Full name of the tweet author
+        handle: Twitter handle of the tweet author
+        date: datetime of the date the tweet was made
+
+    """
+
+    full_tweet_structure = content.find("div", "wrapper")
+
+    info = {}
+    info['tweet-text'] = full_tweet_structure.find("span", "entry-content").get_text().strip()
+    info['full-name'] = full_tweet_structure.find("div", "full-name").text.strip()
+    info['handle'] = full_tweet_structure.find("a", "tweet-url screen-name").get_text().strip()
+
+    time = full_tweet_structure.find("span", "published").text.strip()
+    datetime_object = datetime.strptime(resolve(time), "%I:%M %p %b %d, %Y")
+    info['date'] = datetime_object
+
+    print(info)
+
+    return info
