@@ -4,6 +4,7 @@ import pytest
 import requests
 from bs4 import BeautifulSoup
 
+# Fixtures representing what we expect from our test Tweet IDs
 @pytest.fixture
 def tweet_id_20():
     return {
@@ -22,6 +23,7 @@ def tweet_id_968105771():
         'date': datetime.datetime(2008, 10, 20, 15, 27)
     }
 
+# Fixtures to hold the requested HTML structure from the Wayback Machine
 @pytest.fixture
 def nov_2008_memento_20():
     url = "http://web.archive.org/web/20081103142857/https://twitter.com/jack/status/20"
