@@ -76,7 +76,7 @@ def get_dec_2008_info(content: BeautifulSoup) -> dict:
     datetime_object = datetime.strptime(resolve(time), "%I:%M %p %b %d, %Y")
     info['date'] = datetime_object
 
-    print(info)
+    # print(info)
 
     return info
 
