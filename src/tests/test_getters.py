@@ -1,4 +1,4 @@
-from getters import getters2008
+from getters import getters2008_2011
 import datetime
 import pytest
 import requests
@@ -65,30 +65,30 @@ def jun_2012_memento_20():
     return BeautifulSoup(response.content, 'html.parser')
 
 def test_nov_2008_20(tweet_id_20, nov_2008_memento_20):
-    extracted_contents = getters2008.get_nov_2008_info(nov_2008_memento_20)
+    extracted_contents = getters2008_2011.get_nov_2008_info(nov_2008_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_dec_2008_20(tweet_id_20, dec_2008_memento_20):
-    extracted_contents = getters2008.get_dec_2008_info(dec_2008_memento_20)
+    extracted_contents = getters2008_2011.get_dec_2008_info(dec_2008_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_sep_2009_968105771(tweet_id_968105771, sep_2009_memento_968105771):
-    extracted_contents = getters2008.get_dec_2008_info(sep_2009_memento_968105771)
+    extracted_contents = getters2008_2011.get_dec_2008_info(sep_2009_memento_968105771)
     assert extracted_contents == tweet_id_968105771
 
 def test_nov_2009_20(tweet_id_20, nov_2009_memento_20):
-    extracted_contents = getters2008.get_dec_2008_info(nov_2009_memento_20)
+    extracted_contents = getters2008_2011.get_dec_2008_info(nov_2009_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_jul_2010_20(tweet_id_20, jul_2010_memento_20):
-    extracted_contents = getters2008.get_dec_2008_info(jul_2010_memento_20)
+    extracted_contents = getters2008_2011.get_dec_2008_info(jul_2010_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_apr_2011_20(tweet_id_20, apr_2011_memento_20):
-    extracted_contents = getters2008.get_dec_2008_info(apr_2011_memento_20)
+    extracted_contents = getters2008_2011.get_dec_2008_info(apr_2011_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_jun_2012_20(tweet_id_20, jun_2012_memento_20):
-    extracted_contents = getters2008.get_dec_2008_info(jun_2012_memento_20)
+    extracted_contents = getters2008_2011.get_dec_2008_info(jun_2012_memento_20)
     assert extracted_contents == tweet_id_20
 
