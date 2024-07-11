@@ -1,12 +1,5 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
-import re
-
-def resolve(s):
-    """
-    Helper function to resolve dates with letters, i.e, 1st, 2nd, 3rd
-    """
-    return re.sub(r"(\d)(st|nd|rd|th)", r"\1", s)
 
 def get_jun_2012(content: BeautifulSoup) -> dict:
     """
