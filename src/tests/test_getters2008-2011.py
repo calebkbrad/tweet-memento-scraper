@@ -11,7 +11,16 @@ def tweet_id_20():
         'tweet-text': "just setting up my twttr",
         'full-name': "Jack Dorsey",
         'handle': "jack",
-        'date': datetime.datetime(2006, 3, 21, 12, 50)
+        'date': datetime.datetime(2006, 3, 21)
+    }
+
+@pytest.fixture
+def tweet_id_20_other_time():
+    return {
+        'tweet-text': "just setting up my twttr",
+        'full-name': "Jack Dorsey",
+        'handle': "jack",
+        'date': datetime.datetime(2006, 3, 21)
     }
 
 @pytest.fixture
@@ -20,7 +29,7 @@ def tweet_id_968105771():
         'tweet-text': '"Don\'t make something unless it is both necessary and useful; but if it is both, don\'t hesitate to make it beautiful."',
         'full-name': "Jack Dorsey",
         'handle': "jack",
-        'date': datetime.datetime(2008, 10, 20, 15, 27)
+        'date': datetime.datetime(2008, 10, 20)
     }
 
 # Fixtures to hold the requested HTML structure from the Wayback Machine

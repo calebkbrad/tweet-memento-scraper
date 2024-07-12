@@ -28,6 +28,6 @@ def get_jun_2012(content: BeautifulSoup) -> dict:
     info['full-name'] = full_tweet_structure.find("strong", "fullname js-action-profile-name show-popup-with-id").get_text().strip()
 
     time = full_tweet_structure.find("span", "metadata").span.contents[0].get_text().strip()
-    info['date'] = datetime.strptime(time, "%I:%M %p - %d %b %y")
+    info['date'] = datetime.strptime(time, "%I:%M %p - %d %b %y").replace(hour=0, minute=0)
 
     return info
