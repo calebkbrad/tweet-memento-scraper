@@ -65,7 +65,11 @@ def get_dec_2008_info(content: BeautifulSoup) -> dict:
     full_tweet_structure = content.find("div", "wrapper")
 
     info = {}
+
     info['tweet-text'] = full_tweet_structure.find("span", "entry-content").get_text().strip()
+    print(info['tweet-text'])
+    if 'twitter.com/' in info['tweet-text']:
+        info['tweet-text'] = info['tweet-text'].split(' twitter.com/')[0]
     info['full-name'] = full_tweet_structure.find("div", "full-name").get_text().strip()
     if not full_tweet_structure.find("a", "tweet-url screen-name"):
         info['handle'] = full_tweet_structure.find("div", "screen-name").a.contents[0].get_text().strip()

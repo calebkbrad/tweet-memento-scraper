@@ -17,10 +17,10 @@ def tweet_id_20():
 @pytest.fixture
 def tweet_id_160052090721419264():
     return {
-        'tweet-text': "A photo of David Hasselhoff is in my Discover tab.",
+        'tweet-text': "A photo of David Hasselhoff is in my Discover tab. #germany",
         'full-name': "Jack Dorsey",
         'handle': "jack",
-        'date': datetime.datetime(2012, 1, 19, 17, 32)
+        'date': datetime.datetime(2012, 1, 19)
     }
 
 @pytest.fixture
