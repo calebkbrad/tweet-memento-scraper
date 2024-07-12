@@ -15,15 +15,6 @@ def tweet_id_20():
     }
 
 @pytest.fixture
-def tweet_id_20_other_time():
-    return {
-        'tweet-text': "just setting up my twttr",
-        'full-name': "Jack Dorsey",
-        'handle': "jack",
-        'date': datetime.datetime(2006, 3, 21)
-    }
-
-@pytest.fixture
 def tweet_id_968105771():
     return {
         'tweet-text': '"Don\'t make something unless it is both necessary and useful; but if it is both, don\'t hesitate to make it beautiful."',

@@ -15,16 +15,6 @@ def tweet_id_20():
     }
 
 @pytest.fixture
-def tweet_id_20_other_time():
-    return {
-        'tweet-text': "just setting up my twttr",
-        'full-name': "Jack Dorsey",
-        'handle': "jack",
-        'date': datetime.datetime(2006, 3, 21, 12, 50)
-    }
-
-
-@pytest.fixture
 def tweet_id_160052090721419264():
     return {
         'tweet-text': "A photo of David Hasselhoff is in my Discover tab.",
