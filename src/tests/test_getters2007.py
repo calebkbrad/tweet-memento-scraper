@@ -1,4 +1,3 @@
-# from getters import getters2008_2011, getters2012
 import datetime
 import pytest
 import requests
@@ -113,29 +112,29 @@ def dec_2007_memento_479117922():
 
 
 def test_feb_2007_5310542(tweet_id_5310542, feb_2007_memento_5310542):
-    extracted_contents = getters2007.get_feb_2012(feb_2007_memento_5310542)
+    extracted_contents = getters2007.get_feb_2007(feb_2007_memento_5310542)
     assert extracted_contents == tweet_id_5310542
 
 def test_feb_2007_5254943(tweet_id_5254943, feb_2007_memento_5254943):
-    extracted_contents = getters2007.get_feb_2012(feb_2007_memento_5254943)
+    extracted_contents = getters2007.get_feb_2007(feb_2007_memento_5254943)
     assert extracted_contents == tweet_id_5254943
 
 def test_mar_2007_8639931(tweet_id_8639931, mar_2007_memento_8639931):
-    extracted_contents = getters2007.get_feb_2012(mar_2007_memento_8639931)
+    extracted_contents = getters2007.get_feb_2007(mar_2007_memento_8639931)
     assert extracted_contents == tweet_id_8639931
 
 def test_may_2007_42346422(tweet_id_42346422, may_2007_memento_42346422):
-    extracted_contents = getters2007.get_feb_2012(may_2007_memento_42346422)
+    extracted_contents = getters2007.get_feb_2007(may_2007_memento_42346422)
     assert extracted_contents == tweet_id_42346422
 
 def test_jul_2007_75841592(tweet_id_75841592, jul_2007_memento_75841592):
-    extracted_contents = getters2007.get_feb_2012(jul_2007_memento_75841592)
+    extracted_contents = getters2007.get_feb_2007(jul_2007_memento_75841592)
     assert extracted_contents == tweet_id_75841592
 
 def test_oct_2007_67588892(tweet_id_67588892, oct_2007_memento_67588892):
-    extracted_contents = getters2007.get_feb_2012(oct_2007_memento_67588892)
+    extracted_contents = getters2007.get_feb_2007(oct_2007_memento_67588892)
     assert extracted_contents == tweet_id_67588892
 
 def test_dec_2007_479117922(tweet_id_479117922, dec_2007_memento_479117922):
-    extracted_contents = getters2007.get_feb_2012(dec_2007_memento_479117922)
+    extracted_contents = getters2007.get_feb_2007(dec_2007_memento_479117922)
     assert extracted_contents == tweet_id_479117922
