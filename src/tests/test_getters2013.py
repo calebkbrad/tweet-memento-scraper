@@ -32,6 +32,13 @@ def jun_2013_memento_20():
     return BeautifulSoup(response.content, 'html.parser')
 
 @pytest.fixture
+def jul_2013_memento_20():
+    url = "http://web.archive.org/web/20130709073337/twitter.com/jack/status/20"
+    response = requests.get(url)
+    return BeautifulSoup(response.content, 'html.parser')
+
+
+@pytest.fixture
 def aug_2013_memento_20():
     url = "http://web.archive.org/web/20130814003018/twitter.com/jack/status/20"
     response = requests.get(url)
@@ -60,6 +67,10 @@ def test_apr_2013_20(tweet_id_20, apr_2013_memento_20):
 
 def test_jun_2013_20(tweet_id_20, jun_2013_memento_20):
     extracted_contents = getters2012.get_jun_2012(jun_2013_memento_20)
+    assert extracted_contents == tweet_id_20
+
+def test_jul_2013_20(tweet_id_20, jul_2014_memento_20):
+    extracted_contents = getters2012.get_jun_2012(jul_2014_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_aug_2013_20(tweet_id_20, aug_2013_memento_20):
