@@ -10,12 +10,13 @@ def validate_date(date_string: str) -> datetime | None:
     formats = [
         "%I:%M %p - %d %b %y",
         "%I:%M %p - %d %b %Y",
-        "%I:%M - %d %b %Y"
+        "%I:%M - %d %b %Y",
+        "%I:%M %p - %d %b %y (%Z%z)"
     ]
     date = None
     for format in formats:
         try:
-            date = datetime.strptime(date_string, format).replace(hour=0, minute=0)
+            date = datetime.strptime(date_string, format).replace(hour=0, minute=0, tzinfo=None)
             break
         except ValueError as er:
             print(er)
