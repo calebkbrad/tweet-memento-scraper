@@ -29,9 +29,11 @@ def get_jun_2012(content: BeautifulSoup) -> dict:
     info['tweet-text'] = full_tweet_structure.find("p", "js-tweet-text tweet-text").get_text().strip()
     info['handle'] = full_tweet_structure.find("span", "username js-action-profile-name").b.contents[0].get_text().strip()
 
-    info['full-name'] = full_tweet_structure.find("strong", "fullname js-action-profile-name show-popup-with-id").get_text().strip()
-    if "Verified" in info["full-name"]:
-        info['full-name'] = info['full-name'].split("Verified")[0]
+
+    fullname_tag = full_tweet_structure.find("strong", "fullname js-action-profile-name show-popup-with-id")
+    if fullname_tag.findChild():
+        fullname_tag.findChild().clear()
+    info['full-name'] = fullname_tag.get_text().strip()
 
     time = full_tweet_structure.find("span", "metadata").span.contents[0].get_text().strip()
     info['date'] = datetime.strptime(time, "%I:%M %p - %d %b %y").replace(hour=0, minute=0)
