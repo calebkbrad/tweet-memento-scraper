@@ -1,5 +1,26 @@
 from datetime import datetime
+from dateutil.parser import parse
 from bs4 import BeautifulSoup
+
+def validate_date(date_string: str) -> datetime | None:
+    """
+    Attempt to validate the timestamp extracted from the page and return it as a datetime
+    Can only try against time formats that I know about, so if none match, then None will be returned
+    """
+    formats = [
+        "%I:%M %p - %d %b %y",
+        "%I:%M %p - %d %b %Y",
+        "%I:%M - %d %b %Y"
+    ]
+    date = None
+    for format in formats:
+        try:
+            date = datetime.strptime(date_string, format).replace(hour=0, minute=0)
+            break
+        except ValueError as er:
+            print(er)
+            continue
+    return date
 
 def get_jun_2012(content: BeautifulSoup) -> dict:
     """
@@ -36,9 +57,14 @@ def get_jun_2012(content: BeautifulSoup) -> dict:
     info['full-name'] = fullname_tag.get_text().strip()
 
     time = full_tweet_structure.find("span", "metadata").span.contents[0].get_text().strip()
-    try:
-        info['date'] = datetime.strptime(time, "%I:%M %p - %d %b %y").replace(hour=0, minute=0)
-    except ValueError:
-        info['date'] = datetime.strptime(time, "%I:%M %p - %d %b %Y").replace(hour=0, minute=0)
+    date = validate_date(time)
+    if date:
+        info['date'] = date
+    else:
+        info['date'] = time
+    # try:
+    #     info['date'] = datetime.strptime(time, "%I:%M %p - %d %b %y").replace(hour=0, minute=0)
+    # except ValueError:
+    #     info['date'] = datetime.strptime(time, "%I:%M %p - %d %b %Y").replace(hour=0, minute=0)
 
     return info
