@@ -53,8 +53,8 @@ def get_jun_2012(content: BeautifulSoup) -> dict:
 
 
     fullname_tag = full_tweet_structure.find("strong", "fullname")
-    if fullname_tag.findChild():
-        fullname_tag.findChild().clear()
+    for child in fullname_tag.findChildren():
+        child.clear()
     info['full-name'] = fullname_tag.get_text().strip()
 
     time = full_tweet_structure.find("span", "metadata").span.contents[0].get_text().strip()
@@ -62,10 +62,7 @@ def get_jun_2012(content: BeautifulSoup) -> dict:
     if date:
         info['date'] = date
     else:
+        # This indicates that the time could not be parsed from the string
         info['date'] = time
-    # try:
-    #     info['date'] = datetime.strptime(time, "%I:%M %p - %d %b %y").replace(hour=0, minute=0)
-    # except ValueError:
-    #     info['date'] = datetime.strptime(time, "%I:%M %p - %d %b %Y").replace(hour=0, minute=0)
 
     return info

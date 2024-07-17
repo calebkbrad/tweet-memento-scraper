@@ -1,0 +1,65 @@
+from getters import getters2012
+import datetime
+import pytest
+import requests
+from bs4 import BeautifulSoup
+
+@pytest.fixture
+def tweet_id_20_after_august():
+    return {
+        'tweet-text': "just setting up my twttr",
+        'full-name': "Jack",
+        'handle': "jack",
+        'date': datetime.datetime(2006, 3, 21)
+    }
+
+@pytest.fixture
+def tweet_id_20_with_emoji():
+    return {
+        'tweet-text': "just setting up my twttr",
+        'full-name': "jack",
+        'handle': "jack",
+        'date': datetime.datetime(2006, 3, 21)
+    }
+
+
+@pytest.fixture
+def jan_2016_memento_20():
+    url = "http://web.archive.org/web/20160122063429/twitter.com/jack/status/20"
+    response = requests.get(url)
+    return BeautifulSoup(response.content, 'html.parser')
+
+@pytest.fixture
+def mar_2016_memento_20():
+    url = "http://web.archive.org/web/20160311155857/twitter.com/jack/status/20"
+    response = requests.get(url)
+    return BeautifulSoup(response.content, 'html.parser')
+
+@pytest.fixture
+def jul_2016_memento_20():
+    url = "http://web.archive.org/web/20160711210454/twitter.com/jack/status/20"
+    response = requests.get(url)
+    return BeautifulSoup(response.content, 'html.parser')
+
+@pytest.fixture
+def dec_2016_memento_20_with_emoji():
+    url = "http://web.archive.org/web/20161225212956/twitter.com/jack/status/20"
+    response = requests.get(url)
+    return BeautifulSoup(response.content, 'html.parser')
+
+
+def test_jan_2016_20(tweet_id_20_after_august, jan_2016_memento_20):
+    extracted_contents = getters2012.get_jun_2012(jan_2016_memento_20)
+    assert extracted_contents == tweet_id_20_after_august
+
+def test_mar_2016_20(tweet_id_20_after_august, mar_2016_memento_20):
+    extracted_contents = getters2012.get_jun_2012(mar_2016_memento_20)
+    assert extracted_contents == tweet_id_20_after_august
+
+def test_jul_2016_20(tweet_id_20_after_august, jul_2016_memento_20):
+    extracted_contents = getters2012.get_jun_2012(jul_2016_memento_20)
+    assert extracted_contents == tweet_id_20_after_august
+
+def test_dec_2016_20_with_emoji(tweet_id_20_with_emoji, dec_2016_memento_20_with_emoji):
+    extracted_contents = getters2012.get_jun_2012(dec_2016_memento_20_with_emoji)
+    assert extracted_contents == tweet_id_20_with_emoji
