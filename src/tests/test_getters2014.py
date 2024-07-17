@@ -104,6 +104,17 @@ def aug_2014_second_half_memento_20():
     response = requests.get(url)
     return BeautifulSoup(response.content, 'html.parser')
 
+@pytest.fixture
+def oct_2014_memento_20():
+    url = "http://web.archive.org/web/20151002205430/twitter.com/jack/status/20"
+    response = requests.get(url)
+    return BeautifulSoup(response.content, 'html.parser')
+
+@pytest.fixture
+def nov_2014_memento_20():
+    url = "http://web.archive.org/web/20151106063459/twitter.com/jack/status/20"
+    response = requests.get(url)
+    return BeautifulSoup(response.content, 'html.parser')
 
 
 
@@ -134,4 +145,12 @@ def test_aug_2014_20(tweet_id_20_after_august, aug_2014_memento_20):
 
 def test_aug_2014_second_half_20(tweet_id_20_after_august, aug_2014_second_half_memento_20):
     extracted_contents = getters2012.get_jun_2012(aug_2014_second_half_memento_20)
+    assert extracted_contents == tweet_id_20_after_august
+
+def test_oct_2014_20(tweet_id_20_after_august, oct_2014_memento_20):
+    extracted_contents = getters2012.get_jun_2012(oct_2014_memento_20)
+    assert extracted_contents == tweet_id_20_after_august
+
+def test_nov_2014_20(tweet_id_20_after_august, nov_2014_memento_20):
+    extracted_contents = getters2012.get_jun_2012(nov_2014_memento_20)
     assert extracted_contents == tweet_id_20_after_august
