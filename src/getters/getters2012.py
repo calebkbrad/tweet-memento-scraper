@@ -48,11 +48,11 @@ def get_jun_2012(content: BeautifulSoup) -> dict:
         full_tweet_structure = content.find("div", "permalink-tweet-container")
 
     info = {}
-    info['tweet-text'] = full_tweet_structure.find("p", "js-tweet-text tweet-text").get_text().strip()
-    info['handle'] = full_tweet_structure.find("span", "username js-action-profile-name").b.contents[0].get_text().strip()
+    info['tweet-text'] = full_tweet_structure.find("p", "tweet-text").get_text().strip()
+    info['handle'] = full_tweet_structure.find("span", "username").b.contents[0].get_text().strip()
 
 
-    fullname_tag = full_tweet_structure.find("strong", "fullname js-action-profile-name show-popup-with-id")
+    fullname_tag = full_tweet_structure.find("strong", "fullname")
     if fullname_tag.findChild():
         fullname_tag.findChild().clear()
     info['full-name'] = fullname_tag.get_text().strip()
