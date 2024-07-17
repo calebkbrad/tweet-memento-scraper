@@ -14,6 +14,17 @@ def tweet_id_20():
     }
 
 @pytest.fixture
+def tweet_id_20_after_august():
+    return {
+        'tweet-text': "just setting up my twttr",
+        'full-name': "Jack",
+        'handle': "jack",
+        'date': datetime.datetime(2006, 3, 21)
+    }
+
+
+
+@pytest.fixture
 def tweet_id_334653979390779392():
     return {
         'tweet-text': "“When you're in jail, a good friend will bail you out. A best friend will be in the cell next to you saying, 'Damn, that was fun'.”―Groucho",
@@ -110,7 +121,7 @@ def test_apr_2014_334364760252489728(tweet_id_334364760252489728, apr_2014_memen
     extracted_contents = getters2012.get_jun_2012(apr_2014_memento_334364760252489728)
     assert extracted_contents == tweet_id_334364760252489728
 
-def test_aug_2014_20(tweet_id_20, aug_2014_memento_20):
+def test_aug_2014_20(tweet_id_20_after_august, aug_2014_memento_20):
     extracted_contents = getters2012.get_jun_2012(aug_2014_memento_20)
-    assert extracted_contents == tweet_id_20
+    assert extracted_contents == tweet_id_20_after_august
 
