@@ -47,6 +47,18 @@ def dec_2016_memento_20_with_emoji():
     response = requests.get(url)
     return BeautifulSoup(response.content, 'html.parser')
 
+@pytest.fixture
+def aug_2017_memento_20():
+    url = "http://web.archive.org/web/20170819200046/twitter.com/jack/status/20"
+    response = requests.get(url)
+    return BeautifulSoup(response.content, 'html.parser')
+
+@pytest.fixture
+def dec_2017_memento_20():
+    url = "http://web.archive.org/web/20171229102850/twitter.com/jack/status/20"
+    response = requests.get(url)
+    return BeautifulSoup(response.content, 'html.parser')
+
 
 def test_jan_2016_20(tweet_id_20_after_august, jan_2016_memento_20):
     extracted_contents = getters2012.get_jun_2012(jan_2016_memento_20)
@@ -62,4 +74,12 @@ def test_jul_2016_20(tweet_id_20_after_august, jul_2016_memento_20):
 
 def test_dec_2016_20_with_emoji(tweet_id_20_with_emoji, dec_2016_memento_20_with_emoji):
     extracted_contents = getters2012.get_jun_2012(dec_2016_memento_20_with_emoji)
+    assert extracted_contents == tweet_id_20_with_emoji
+
+def test_aug_2017_20(tweet_id_20_with_emoji, aug_2017_memento_20):
+    extracted_contents = getters2012.get_jun_2012(aug_2017_memento_20)
+    assert extracted_contents == tweet_id_20_with_emoji
+
+def test_dec_2017_20(tweet_id_20_with_emoji, dec_2017_memento_20):
+    extracted_contents = getters2012.get_jun_2012(dec_2017_memento_20)
     assert extracted_contents == tweet_id_20_with_emoji
