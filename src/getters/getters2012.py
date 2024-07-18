@@ -1,5 +1,4 @@
 from datetime import datetime
-from dateutil.parser import parse
 from bs4 import BeautifulSoup
 
 def validate_date(date_string: str) -> datetime | None:
@@ -19,7 +18,7 @@ def validate_date(date_string: str) -> datetime | None:
             date = datetime.strptime(date_string, format).replace(hour=0, minute=0, tzinfo=None)
             break
         except ValueError as er:
-            print(er)
+            # print(er)
             continue
     return date
 
