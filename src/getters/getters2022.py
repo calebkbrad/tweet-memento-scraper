@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 def get_jun_2022(content: BeautifulSoup) -> dict:
     """
-    Extract all available info from a tweet with structure from around June 2012
+    Extract all available info from a tweet with structure from around 2022
     
     Parameters
     ----------
