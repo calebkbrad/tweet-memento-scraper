@@ -76,13 +76,13 @@ def test_march_2012_20(tweet_id_20, march_2012_memento_20):
 
 
 def test_jun_2012_20(tweet_id_20, jun_2012_memento_20):
-    extracted_contents = getters2012.get_jun_2012_to_may_2022(jun_2012_memento_20)
+    extracted_contents = getters2012.get_may_2012_to_may_2022(jun_2012_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_nov_2012_20(tweet_id_20, nov_2012_memento_20):
-    extracted_contents = getters2012.get_jun_2012_to_may_2022(nov_2012_memento_20)
+    extracted_contents = getters2012.get_may_2012_to_may_2022(nov_2012_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_dec_2012_20(tweet_id_20, dec_2012_memento_20):
-    extracted_contents = getters2012.get_jun_2012_to_may_2022(dec_2012_memento_20)
+    extracted_contents = getters2012.get_may_2012_to_may_2022(dec_2012_memento_20)
     assert extracted_contents == tweet_id_20

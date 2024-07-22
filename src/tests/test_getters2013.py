@@ -58,29 +58,29 @@ def dec_2013_memento_20():
 
 
 def test_feb_2013_20_spanish(tweet_id_20, feb_2013_memento_20_spanish):
-    extracted_contents = getters2012.get_jun_2012_to_may_2022(feb_2013_memento_20_spanish)
+    extracted_contents = getters2012.get_may_2012_to_may_2022(feb_2013_memento_20_spanish)
     assert extracted_contents == tweet_id_20
 
 def test_apr_2013_20(tweet_id_20, apr_2013_memento_20):
-    extracted_contents = getters2012.get_jun_2012_to_may_2022(apr_2013_memento_20)
+    extracted_contents = getters2012.get_may_2012_to_may_2022(apr_2013_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_jun_2013_20(tweet_id_20, jun_2013_memento_20):
-    extracted_contents = getters2012.get_jun_2012_to_may_2022(jun_2013_memento_20)
+    extracted_contents = getters2012.get_may_2012_to_may_2022(jun_2013_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_jul_2013_20(tweet_id_20, jul_2014_memento_20):
-    extracted_contents = getters2012.get_jun_2012_to_may_2022(jul_2014_memento_20)
+    extracted_contents = getters2012.get_may_2012_to_may_2022(jul_2014_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_aug_2013_20(tweet_id_20, aug_2013_memento_20):
-    extracted_contents = getters2012.get_jun_2012_to_may_2022(aug_2013_memento_20)
+    extracted_contents = getters2012.get_may_2012_to_may_2022(aug_2013_memento_20)
     assert extracted_contents == tweet_id_20
 
 def test_oct_2013_20_spanish(tweet_id_20, oct_2013_memento_20_spanish):
-    extracted_contents = getters2012.get_jun_2012_to_may_2022(oct_2013_memento_20_spanish)
+    extracted_contents = getters2012.get_may_2012_to_may_2022(oct_2013_memento_20_spanish)
     assert extracted_contents == tweet_id_20
 
 def test_dec_2013_20(tweet_id_20, dec_2013_memento_20):
-    extracted_contents = getters2012.get_jun_2012_to_may_2022(dec_2013_memento_20)
+    extracted_contents = getters2012.get_may_2012_to_may_2022(dec_2013_memento_20)
     assert extracted_contents == tweet_id_20
