@@ -22,7 +22,7 @@ def validate_date(date_string: str) -> datetime | None:
             continue
     return date
 
-def get_jun_2012(content: BeautifulSoup) -> dict:
+def get_jun_2012_to_may_2022(content: BeautifulSoup) -> dict:
     """
     Extract all available info from a tweet with structure from around June 2012
     

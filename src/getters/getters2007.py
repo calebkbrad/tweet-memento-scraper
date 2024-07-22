@@ -1,7 +1,7 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-def get_feb_2007(content: BeautifulSoup) -> dict:
+def get_feb_2007_to_aug_2008(content: BeautifulSoup) -> dict:
     """
     Extract all available info from a tweet with structure from around February 2007 (currently the oldest memento I have seen)
     

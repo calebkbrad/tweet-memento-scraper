@@ -9,7 +9,7 @@ def resolve(s):
     return re.sub(r"(\d)(st|nd|rd|th)", r"\1", s)
 
 
-def get_nov_2008_info(content: BeautifulSoup) -> dict:
+def get_sep_2008_to_nov_2008(content: BeautifulSoup) -> dict:
     """
     Extract all available info from a tweet with structure from around November 2008
     
@@ -42,7 +42,7 @@ def get_nov_2008_info(content: BeautifulSoup) -> dict:
 
     return info
 
-def get_dec_2008_info(content: BeautifulSoup) -> dict:
+def get_dec_2008_to_april_2012(content: BeautifulSoup) -> dict:
     """
     Extract all available info from a tweet with structure from around November 2009
     
