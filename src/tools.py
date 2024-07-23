@@ -38,14 +38,14 @@ def get_tweet_memento_timeframe(memento_datetime: datetime) -> Timeframe:
     The timeframe that this memento occurred in as a Timeframe enum
     """
     timeframes = (
-        (datetime(2007, 2, 0), datetime(2008, 8, 31), Timeframe.FEB_2007_TO_AUG_2008),
-        (datetime(2008, 9, 0), datetime(2008, 11, 30), Timeframe.SEP_2008_TO_NOV_2008),
-        (datetime(2008, 12, 0), datetime(2012, 4, 30), Timeframe.DEC_2008_TO_APRIL_2012),
-        (datetime(2012, 5, 0), datetime(2022, 5, 31), Timeframe.MAY_2012_TO_MAY_2022),
+        (datetime(2007, 2, 1), datetime(2008, 8, 31), Timeframe.FEB_2007_TO_AUG_2008),
+        (datetime(2008, 9, 1), datetime(2008, 11, 30), Timeframe.SEP_2008_TO_NOV_2008),
+        (datetime(2008, 12, 1), datetime(2012, 4, 30), Timeframe.DEC_2008_TO_APRIL_2012),
+        (datetime(2012, 5, 1), datetime(2022, 5, 31), Timeframe.MAY_2012_TO_MAY_2022),
     )
 
     # Handle tweets older than known and last range
-    if memento_datetime < datetime(2007, 2, 0):
+    if memento_datetime < datetime(2007, 2, 1):
         return Timeframe.UNKNOWN_BEFORE
     if memento_datetime > datetime(2022, 5, 31):
         return Timeframe.JUN_2022
