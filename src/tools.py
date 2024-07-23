@@ -1,5 +1,6 @@
 from datetime import datetime
 from enum import Enum
+from requests import Response
 
 class Timeframe(Enum):
     UNKNOWN_BEFORE = 0
@@ -9,20 +10,20 @@ class Timeframe(Enum):
     MAY_2012_TO_MAY_2022 = 4
     JUN_2022 = 5
 
-def get_memento_datetime(response_headers: dict) -> datetime:
+def get_memento_datetime(response: Response) -> datetime:
     """
     Extract appropriate datetime from Memento datetime header
 
     Parameters
     ----------
-    response_headers: The response headers from a request to the Wayback Machine
+    response_headers: The HTTP response from a request to a Wayback Machine memento
 
     Returns
     ----------
     datetime object corresponding to the "memento-datetime" header in the response_headers
     """
 
-    memento_datetime_header = response_headers['memento-datetime']
+    memento_datetime_header = response.headers['memento-datetime']
     return datetime.strptime(memento_datetime_header, "%a, %d %b %Y %H:%M:%S GMT")
 
 def get_tweet_memento_timeframe(memento_datetime: datetime) -> Timeframe:
