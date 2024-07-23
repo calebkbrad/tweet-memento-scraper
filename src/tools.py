@@ -55,5 +55,5 @@ def get_tweet_memento_timeframe(memento_datetime: datetime) -> Timeframe:
         if timeframe[0] <= memento_datetime <= timeframe[1]:
             return timeframe[2]
     
-    # Some kind of error, just returning None for now
-    return None
+    # Memento cannot be placed
+    raise ValueError("f{memento_datetime} could not be placed in any timeframe")
