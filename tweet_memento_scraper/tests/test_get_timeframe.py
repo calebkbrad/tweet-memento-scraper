@@ -2,8 +2,8 @@ import datetime
 import pytest
 import requests
 from bs4 import BeautifulSoup
-from tools import get_memento_datetime, get_tweet_memento_timeframe
-from tools import Timeframe
+from scripts.tools import get_memento_datetime, get_tweet_memento_timeframe
+from scripts.tools import Timeframe
 
 @pytest.fixture
 def datetime_before_known():
