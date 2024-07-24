@@ -67,7 +67,7 @@ def get_dec_2008_to_april_2012(content: BeautifulSoup) -> dict:
     info = {}
 
     info['tweet-text'] = full_tweet_structure.find("span", "entry-content").get_text().strip()
-    print(info['tweet-text'])
+    # print(info['tweet-text'])
     if 'twitter.com/' in info['tweet-text']:
         info['tweet-text'] = info['tweet-text'].split(' twitter.com/')[0]
     info['full-name'] = full_tweet_structure.find("div", "full-name").get_text().strip()
