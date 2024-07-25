@@ -13,7 +13,8 @@ setup(
     entry_points={
         'console_scripts': [
             'test_script = tweet_memento_scraper.scripts.main:cli',
-            'scrape_tweet_memento = tweet_memento_scraper.scripts.main:scrape_tweet_memento'
+            'scrape_tweet_memento = tweet_memento_scraper.scripts.main:scrape_tweet_memento',
+            'scrape_tweet_mementos = tweet_memento_scraper.scripts.main:scrape_tweet_mementos' 
         ],
     },
 )
