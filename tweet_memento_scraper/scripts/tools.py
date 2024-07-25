@@ -1,4 +1,5 @@
 from datetime import datetime
+from time import sleep
 from enum import IntEnum
 from requests import Response
 import requests
@@ -92,7 +93,15 @@ def scrape_tweet(uri: str) -> dict:
     archived-at: datetime of the date the memento was archived in iso
     uri: URI-R of the memento
     """
-    response = requests.get(uri)
+
+    while True:
+        try:
+            response = requests.get(uri)
+            break
+        except requests.exceptions.ConnectionError:
+            print("Backing off for a bit, the Wayback Machine seems to be annoyed")
+            sleep(5)
+            
     soup = BeautifulSoup(response.content, 'html.parser')
     memento_datetime = get_memento_datetime(response)
     timeframe = get_tweet_memento_timeframe(memento_datetime)
