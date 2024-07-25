@@ -22,6 +22,13 @@ getters_list = [
     getters2022.get_jun_2022
 ]
 
+timeframes = (
+    (datetime(2007, 2, 1), datetime(2008, 8, 31), Timeframe.FEB_2007_TO_AUG_2008),
+    (datetime(2008, 9, 1), datetime(2008, 11, 30), Timeframe.SEP_2008_TO_NOV_2008),
+    (datetime(2008, 12, 1), datetime(2012, 4, 30), Timeframe.DEC_2008_TO_APRIL_2012),
+    (datetime(2012, 5, 1), datetime(2022, 5, 31), Timeframe.MAY_2012_TO_MAY_2022),
+)
+
 def get_memento_datetime(response: Response) -> datetime:
     """
     Extract appropriate datetime from Memento datetime header
@@ -49,12 +56,6 @@ def get_tweet_memento_timeframe(memento_datetime: datetime) -> Timeframe:
     ----------
     The timeframe that this memento occurred in as a Timeframe enum
     """
-    timeframes = (
-        (datetime(2007, 2, 1), datetime(2008, 8, 31), Timeframe.FEB_2007_TO_AUG_2008),
-        (datetime(2008, 9, 1), datetime(2008, 11, 30), Timeframe.SEP_2008_TO_NOV_2008),
-        (datetime(2008, 12, 1), datetime(2012, 4, 30), Timeframe.DEC_2008_TO_APRIL_2012),
-        (datetime(2012, 5, 1), datetime(2022, 5, 31), Timeframe.MAY_2012_TO_MAY_2022),
-    )
 
     # Handle tweets older than known and last range
     if memento_datetime < datetime(2007, 2, 1):
@@ -75,10 +76,25 @@ def get_tweet_memento_timeframe(memento_datetime: datetime) -> Timeframe:
 def scrape_tweet(uri: str) -> dict:
     """
     Scrape the tweet for available info, return as dict
+    This function also adds the memento's datetime header as the field 'archived-at'
+
+    Parameters
+    ----------
+    uri: A URI-R of a Twitter status URI from the Wayback Machine
+
+    Returns
+    ----------
+    The dictionary representing a tweet with the following fields where possible:
+    tweet-text: The tweet body
+    full-name: Full name of the tweet author
+    handle: Twitter handle of the tweet author
+    date: datetime of the date the tweet was made
+    archived-at: datetime of the date the memento was archived
     """
     response = requests.get(uri)
     soup = BeautifulSoup(response.content, 'html.parser')
     memento_datetime = get_memento_datetime(response)
     timeframe = get_tweet_memento_timeframe(memento_datetime)
-
-    return getters_list[int(timeframe)](soup)
+    info = getters_list[int(timeframe)](soup)
+    info['archived-at'] = memento_datetime
+    return info
