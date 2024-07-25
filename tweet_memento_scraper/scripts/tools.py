@@ -88,13 +88,16 @@ def scrape_tweet(uri: str) -> dict:
     tweet-text: The tweet body
     full-name: Full name of the tweet author
     handle: Twitter handle of the tweet author
-    date: datetime of the date the tweet was made
-    archived-at: datetime of the date the memento was archived
+    date: datetime of the date the tweet was made in iso. This field truncates precision from hour onwards
+    archived-at: datetime of the date the memento was archived in iso
+    uri: URI-R of the memento
     """
     response = requests.get(uri)
     soup = BeautifulSoup(response.content, 'html.parser')
     memento_datetime = get_memento_datetime(response)
     timeframe = get_tweet_memento_timeframe(memento_datetime)
     info = getters_list[int(timeframe)](soup)
-    info['archived-at'] = memento_datetime
+    info['archived-at'] = memento_datetime.isoformat()
+    info['date'] = info['date'].isoformat()
+    info['uri'] = uri
     return info
