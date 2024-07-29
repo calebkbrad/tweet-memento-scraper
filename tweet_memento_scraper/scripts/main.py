@@ -35,9 +35,9 @@ def scrape_tweet_mementos(uri_list: click.File, output: click.File):
         uri: URI-R of the memento
     """
     raw_uris = uri_list.read().split()
-    to_write = []
+    to_write = {}
 
     for uri in raw_uris:
-        to_write.append(tools.scrape_tweet(uri))
+        to_write[uri] = tools.scrape_tweet(uri)
     
     json.dump(to_write, output, indent=3)

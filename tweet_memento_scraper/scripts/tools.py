@@ -108,5 +108,4 @@ def scrape_tweet(uri: str) -> dict:
     info = getters_list[int(timeframe)](soup)
     info['archived-at'] = memento_datetime.isoformat()
     info['date'] = info['date'].isoformat()
-    info['uri'] = uri
     return info
