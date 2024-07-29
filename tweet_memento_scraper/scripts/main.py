@@ -26,13 +26,12 @@ def scrape_tweet_mementos(uri_list: click.File, output: click.File):
     \b
     Scrape the URI-Rs in the URI_LIST text file. 
     URI_LIST text file should contain URI-Rs separated by white space
-    Results are dumped to output file in JSON with the following schema:
+    Results are dumped to output file in JSON with the following schema, labelled by URI:
         tweet-text: The tweet body
         full-name: Full name of the tweet author
         handle: Twitter handle of the tweet author
         date: datetime of the date the tweet was made in iso. This field truncates precision from hour onwards
         archived-at: datetime of the date the memento was archived in iso
-        uri: URI-R of the memento
     """
     raw_uris = uri_list.read().split()
     to_write = {}

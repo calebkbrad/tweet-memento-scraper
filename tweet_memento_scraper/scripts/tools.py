@@ -85,13 +85,12 @@ def scrape_tweet(uri: str) -> dict:
 
     Returns
     ----------
-    The dictionary representing a tweet with the following fields where possible:
+    The dictionary representing a tweet with the following fields where possible, labelled by URI:
     tweet-text: The tweet body
     full-name: Full name of the tweet author
     handle: Twitter handle of the tweet author
     date: datetime of the date the tweet was made in iso. This field truncates precision from hour onwards
     archived-at: datetime of the date the memento was archived in iso
-    uri: URI-R of the memento
     """
 
     while True:
