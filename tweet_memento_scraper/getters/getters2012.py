@@ -1,21 +1,29 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
+from googletrans import Translator
 
 def validate_date(date_string: str) -> datetime | None:
     """
     Attempt to validate the timestamp extracted from the page and return it as a datetime
     Can only try against time formats that I know about, so if none match, then None will be returned
     """
+    translator = Translator()
+    attempt_string = date_string
+    if 'en' not in translator.detect(attempt_string).lang:
+        print('made it in here')
+        attempt_string = translator.translate(attempt_string).text.strip()
+        print(f"attempt string is {attempt_string}")
     formats = [
         "%I:%M %p - %d %b %y",
         "%I:%M %p - %d %b %Y",
         "%I:%M - %d %b %Y",
-        "%I:%M %p - %d %b %y (%Z%z)"
+        "%I:%M %p - %d %b %y (%Z%z)",
+        "%I:%M - %B %d, %Y"
     ]
     date = None
     for format in formats:
         try:
-            date = datetime.strptime(date_string, format).replace(hour=0, minute=0, tzinfo=None)
+            date = datetime.strptime(attempt_string, format).replace(hour=0, minute=0, tzinfo=None)
             break
         except ValueError as er:
             # print(er)
