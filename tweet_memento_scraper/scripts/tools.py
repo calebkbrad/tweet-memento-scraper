@@ -70,9 +70,7 @@ def get_tweet_memento_timeframe(memento_datetime: datetime) -> Timeframe:
             return timeframe[2]
     
     # Memento cannot be placed
-    raise ValueError("f{memento_datetime} could not be placed in any timeframe")
-
-
+    raise ValueError(f"{memento_datetime} could not be placed in any timeframe")
 
 def scrape_tweet(uri: str) -> dict:
     """
@@ -106,5 +104,6 @@ def scrape_tweet(uri: str) -> dict:
     timeframe = get_tweet_memento_timeframe(memento_datetime)
     info = getters_list[int(timeframe)](soup)
     info['archived-at'] = memento_datetime.isoformat()
-    info['date'] = info['date'].isoformat()
+    if type(info['date']) == datetime:
+        info['date'] = info['date'].isoformat()
     return info
