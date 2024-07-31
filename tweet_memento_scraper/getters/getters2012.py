@@ -10,9 +10,7 @@ def validate_date(date_string: str) -> datetime | None:
     translator = Translator()
     attempt_string = date_string
     if 'en' not in translator.detect(attempt_string).lang:
-        print('made it in here')
         attempt_string = translator.translate(attempt_string).text.strip()
-        print(f"attempt string is {attempt_string}")
     formats = [
         "%I:%M %p - %d %b %y",
         "%I:%M %p - %d %b %Y",
