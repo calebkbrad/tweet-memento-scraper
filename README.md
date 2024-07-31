@@ -3,7 +3,7 @@ A command line tool for scraping a Twitter status URI-M for info about that twee
 
 ## Usage
 
-## Installing the tool locally with git  
+### Installing the tool locally with git  
 1. Setup venv (optional but I would recommend it)
    1. Create venv
    ```
@@ -23,21 +23,61 @@ A command line tool for scraping a Twitter status URI-M for info about that twee
    ```
     ~/pip install --editable .
    ```
-4. Run the tool
-    ```
-    ~/scrape_tweet_mementos --help  
-    Usage: scrape_tweet_mementos [OPTIONS] URI_LIST  
-    Scrape the URI-Rs in the URI_LIST text file.  
-    URI_LIST text file should contain URI-Rs separated by white space  
-    Results are dumped to output file in JSON with the following schema:  
-        tweet-text: The tweet body  
-        full-name: Full name of the tweet author  
-        handle: Twitter handle of the tweet author  
-        date: datetime of the date the tweet was made in iso. This
-        field truncates precision from hour onwards  
-        archived-at: datetime of the date the memento was archived in
-        iso
-        uri: URI-R of the memento  
-    Options:
-    -o, --output FILENAME  name of desired output file. Default is output.json
-    --help                 Show this message and exit.  
+
+### Using the tool for a single uri  
+Use the scrape_tweet_memento command for scraping a single given URI.
+```
+~/scrape_tweet_memento http://web.archive.org/web/20170409141941/https://twitter.com/jack/status/20
+```  
+The above command should produce the following JSON content in a file named output.json  
+```
+{
+   "tweet-text": "just setting up my twttr",
+   "handle": "jack",
+   "full-name": "jack",
+   "date": "2006-03-21T00:00:00",
+   "archived-at": "2017-04-09T14:19:41"
+}  
+```  
+### Using the tool for multiple URIs in a text file  
+Use the scrape_tweet_mementos command for scraping URIs given in a text file delimited with white space  
+```
+scrape_tweet_mementos sample.txt  
+```  
+The above command (given the sample.txt [here](sample.txt)) should produce the following JSON content in a file named output.json.  
+```
+{
+   "http://web.archive.org/web/20081222104434/https://twitter.com/jack/status/20": {
+      "tweet-text": "just setting up my twttr",
+      "full-name": "Jack Dorsey",
+      "handle": "jack",
+      "date": "2006-03-21T00:00:00",
+      "archived-at": "2008-12-22T10:44:34"
+   },
+   "https://web.archive.org/web/20071024130209/http://twitter.com:80/guru/statuses/343504652": {
+      "tweet-text": "\"Only those who risk going too far can possibly find out how far one can go.\" [T.S. Elliot] Found on a bottle of *Hard* Pear Cider. Risqu\u00e9.",
+      "full-name": "Jacob",
+      "handle": "guru",
+      "date": "2007-10-17T00:00:00",
+      "archived-at": "2007-10-24T13:02:09"
+   },
+   "http://web.archive.org/web/20090924111048/https://twitter.com/jack/status/968105771": {
+      "tweet-text": "\"Don't make something unless it is both necessary and useful; but if it is both, don't hesitate to make it beautiful.\"",
+      "full-name": "Jack Dorsey",
+      "handle": "jack",
+      "date": "2008-10-20T00:00:00",
+      "archived-at": "2009-09-24T11:10:48"
+   },
+   "http://web.archive.org/web/20140109183606/twitter.com/jack/status/415211454720004096": {
+      "tweet-text": "\u201cI only hope we don't lose sight of one thing\u2014that it was all started by a mouse.\u201d\u2014Walt Disney pic.twitter.com/MgY9byVIkz",
+      "handle": "jack",
+      "full-name": "Jack Dorsey",
+      "date": "2013-12-23T00:00:00",
+      "archived-at": "2014-01-09T18:36:06"
+   }
+}
+```  
+Both commands support changing of output file name with the -o flag, like below  
+```
+scrape_tweet_memento http://web.archive.org/web/20170409141941/https://twitter.com/jack/status/20 -o some_other_file.json  
+```
