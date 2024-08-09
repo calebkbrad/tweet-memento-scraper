@@ -1,8 +1,6 @@
 from datetime import datetime
-from time import sleep
 from enum import IntEnum
-from requests import Response
-import requests
+from requests import Response, Session
 from bs4 import BeautifulSoup
 from ..getters import getters2007, getters2008_2011, getters2012, getters2022
 
@@ -72,7 +70,7 @@ def get_tweet_memento_timeframe(memento_datetime: datetime) -> Timeframe:
     # Memento cannot be placed
     raise ValueError(f"{memento_datetime} could not be placed in any timeframe")
 
-def scrape_tweet(uri: str) -> dict:
+def scrape_tweet(uri: str, session: Session) -> dict:
     """
     Scrape the tweet for available info, return as dict
     This function also adds the memento's datetime header as the field 'archived-at'
@@ -90,14 +88,7 @@ def scrape_tweet(uri: str) -> dict:
     date: datetime of the date the tweet was made in iso. This field truncates precision from hour onwards
     archived-at: datetime of the date the memento was archived in iso
     """
-
-    while True:
-        try:
-            response = requests.get(uri)
-            break
-        except requests.exceptions.ConnectionError:
-            print("Backing off for a bit, the Wayback Machine seems to be annoyed")
-            sleep(5)
+    response = session.get(uri)
             
     soup = BeautifulSoup(response.content, 'html.parser')
     memento_datetime = get_memento_datetime(response)
