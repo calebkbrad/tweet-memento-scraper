@@ -76,7 +76,19 @@ The above command (given the sample.txt [here](sample.txt)) should produce the f
       "archived-at": "2014-01-09T18:36:06"
    }
 }
+```
+By default, this command will wait 5 seconds between requests to ease the load on the Wayback Machine and to reduce the number of connection refusals. To change the number of seconds to wait between requests, use the w (waittime) flag like so  
+```
+scrape_tweet_mementos sample.txt -w 10
 ```  
+This will change the wait time between requests to 10 seconds  
+
+If you wish to bypass the wait between requests entirely, then the f (fast) flag can be used.  
+```
+scrape_tweet_mementos sample.txt -f
+```  
+This makes every request sequentially without waiting. This should only be done if you only have about 10 or so URIs to scrape, otherwise you will likely run into connection refusals that could last several minutes.
+
 Both commands support changing of output file name with the -o flag, like below  
 ```
 scrape_tweet_memento http://web.archive.org/web/20170409141941/https://twitter.com/jack/status/20 -o some_other_file.json  
