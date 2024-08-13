@@ -96,6 +96,7 @@ def scrape_tweet(uri: str, session: Session, fast: bool, wait_time: float = 5) -
     response = session.get(uri)
     print("Request successful")
     if not fast:
+        print("Waiting")
         sleep(wait_time)
             
     soup = BeautifulSoup(response.content, 'html.parser')
