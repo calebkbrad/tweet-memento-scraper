@@ -19,7 +19,7 @@ def scrape_tweet_memento(uri: str, output:click.File):
     """
     Scrape the URI-R given by URI argument
     """
-    json.dump(tools.scrape_tweet(uri), output, indent=3)
+    json.dump(tools.scrape_single_tweet(uri), output, indent=3)
     
 
 @click.command()

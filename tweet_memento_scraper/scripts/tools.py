@@ -3,6 +3,7 @@ from enum import IntEnum
 from requests import Response, Session
 from bs4 import BeautifulSoup
 from time import sleep
+import requests
 from ..getters import getters2007, getters2008_2011, getters2012, getters2022
 
 class Timeframe(IntEnum):
@@ -70,6 +71,35 @@ def get_tweet_memento_timeframe(memento_datetime: datetime) -> Timeframe:
     
     # Memento cannot be placed
     raise ValueError(f"{memento_datetime} could not be placed in any timeframe")
+
+def scrape_single_tweet(uri: str):
+    """
+    Scrape the tweet for available info, return as dict. This will be called specifically by the command to scrape a single tweet
+
+    Parameters
+    ----------
+    uri: A URI-R of a Twitter status URI from the Wayback Machine
+
+    Returns
+    ----------
+    The dictionary representing a tweet with the following fields where possible, labelled by URI:
+    tweet-text: The tweet body
+    full-name: Full name of the tweet author
+    handle: Twitter handle of the tweet author
+    date: datetime of the date the tweet was made in iso. This field truncates precision from hour onwards
+    archived-at: datetime of the date the memento was archived in iso
+    """
+    print(f"Getting {uri}")
+    response = requests.get(uri)
+    print("Request successful")
+    soup = BeautifulSoup(response.content, 'html.parser')
+    memento_datetime = get_memento_datetime(response)
+    timeframe = get_tweet_memento_timeframe(memento_datetime)
+    info = getters_list[int(timeframe)](soup)
+    info['archived-at'] = memento_datetime.isoformat()
+    if type(info['date']) == datetime:
+        info['date'] = info['date'].isoformat()
+    return info
 
 def scrape_tweet(uri: str, session: Session, fast: bool, wait_time: float = 5) -> dict:
     """
