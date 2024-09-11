@@ -16,7 +16,8 @@ def validate_date(date_string: str) -> datetime | None:
         "%I:%M %p - %d %b %Y",
         "%I:%M - %d %b %Y",
         "%I:%M %p - %d %b %y (%Z%z)",
-        "%I:%M - %B %d, %Y"
+        "%I:%M - %B %d, %Y",
+        "%I:%M - %d %b %Y"
     ]
     date = None
     for format in formats:
