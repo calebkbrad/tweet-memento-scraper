@@ -138,6 +138,8 @@ def scrape_tweet(uri: str, session: Session, fast: bool, wait_time: float = 5) -
     soup = BeautifulSoup(response.content, 'html.parser')
     memento_datetime = get_memento_datetime(response)
     timeframe = get_tweet_memento_timeframe(memento_datetime)
+    if timeframe == Timeframe.AFTER_MAY_2024:
+        raise ValueError("URI is archived after May 2024, scraping is not possible")
     info = getters_list[int(timeframe)](soup)
     info['archived-at'] = memento_datetime.isoformat()
     if type(info['date']) == datetime:
