@@ -13,6 +13,7 @@ class Timeframe(IntEnum):
     DEC_2008_TO_APRIL_2012 = 3
     MAY_2012_TO_MAY_2022 = 4
     JUN_2022 = 5
+    AFTER_MAY_2024 = 6
 
 getters_list = [
     None,
@@ -58,6 +59,9 @@ def get_tweet_memento_timeframe(memento_datetime: datetime) -> Timeframe:
     The timeframe that this memento occurred in as a Timeframe enum
     """
 
+    # Handle timeframe older than May 2024 (scraping will be unsuccessful)
+    if memento_datetime > datetime(2024, 5, 17):
+        return Timeframe.AFTER_MAY_2024
     # Handle tweets older than known and last range
     if memento_datetime < datetime(2007, 2, 1):
         return Timeframe.UNKNOWN_BEFORE
@@ -95,6 +99,8 @@ def scrape_single_tweet(uri: str):
     soup = BeautifulSoup(response.content, 'html.parser')
     memento_datetime = get_memento_datetime(response)
     timeframe = get_tweet_memento_timeframe(memento_datetime)
+    if timeframe == Timeframe.AFTER_MAY_2024:
+        raise ValueError("URI is archived after May 2024, scraping is not possible")
     info = getters_list[int(timeframe)](soup)
     info['archived-at'] = memento_datetime.isoformat()
     if type(info['date']) == datetime:
