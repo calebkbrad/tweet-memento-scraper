@@ -19,7 +19,12 @@ def scrape_tweet_memento(uri: str, output:click.File):
     """
     Scrape the URI-R given by URI argument
     """
-    json.dump(tools.scrape_single_tweet(uri), output, indent=3)
+    tweet = {}
+    try:
+        tweet = tools.scrape_single_tweet(uri)
+    except Exception as e:
+        tweet = {"Error": {repr(e)}}
+    json.dump(tweet, output, indent=3)
     
 
 @click.command()
@@ -51,6 +56,6 @@ def scrape_tweet_mementos(uri_list: click.File, output: click.File, fast: bool, 
         try:
             to_write[uri] = tools.scrape_tweet(uri, session, fast, wait_time=waittime)
         except Exception as e:
-            to_write[uri] = {f"Error in scraping this URI: {repr(e)}"}
+            to_write[uri] = {"Error": {repr(e)}}
     
     json.dump(to_write, output, indent=3)
