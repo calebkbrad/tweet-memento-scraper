@@ -35,6 +35,9 @@ def get_profile_nov_2006(content: BeautifulSoup) -> dict:
     tweets.append(latest_tweet)
     tweet_list = content.find("table", "doing").find_all("tr")
     for tweet in tweet_list:
+        # last tr is potentially empty, ignore it if it is
+        if not tweet.get("class"):
+            continue
         print("Reading tweet")
         tweet_info = {}
         date = tweet.find("span", "meta")
@@ -43,18 +46,15 @@ def get_profile_nov_2006(content: BeautifulSoup) -> dict:
             date.clear()
         else:
             date = tweet.find("p", "meta")
-            # last td is potentially empty, ignore it if it is
-            if not date:
-                break
             tweet_info['date'] = date.text.strip()
             date.clear()
         tweet.find("span", "meta").clear()
-        if tweet.td.text:
-            tweet_info['text'] = tweet.td.text.strip()
-        else:
-            tweet_info['text'] = tweet.p.text.strip()
+        if tweet.td.get("class"):
+            tweet.td.extract()
+        tweet_info['text'] = tweet.td.text.strip()
+        print(tweet.td)
         tweets.append(tweet_info)
-        print(tweet_info)
+        # print(tweet_info)
     info['tweets'] = tweets
 
     return info
