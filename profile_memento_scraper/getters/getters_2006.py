@@ -38,7 +38,6 @@ def get_profile_nov_2006(content: BeautifulSoup) -> dict:
         # last tr is potentially empty, ignore it if it is
         if not tweet.get("class"):
             continue
-        print("Reading tweet")
         tweet_info = {}
         date = tweet.find("span", "meta")
         if date:
@@ -52,9 +51,7 @@ def get_profile_nov_2006(content: BeautifulSoup) -> dict:
         if tweet.td.get("class"):
             tweet.td.extract()
         tweet_info['text'] = tweet.td.text.strip()
-        print(tweet.td)
         tweets.append(tweet_info)
-        # print(tweet_info)
     info['tweets'] = tweets
 
     return info
