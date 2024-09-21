@@ -1,6 +1,5 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
-import string
 
 def get_profile_nov_2006(content: BeautifulSoup) -> dict:
     """
@@ -18,12 +17,10 @@ def get_profile_nov_2006(content: BeautifulSoup) -> dict:
         full-name: The current screen name of the user
     """
     info = {}
-    # For stripping white space
-    whitespace_except_space = string.whitespace.replace(" ", "")
     about = content.find("div", {"id": "side"})
     info['handle'] = content.title.text.split("/ ")[1]
     if 'Name:' in about.text:
-        info['full-name'] = about.find("ul", "about").find("ui").text.split("Name: ")[1]
+        info['full-name'] = about.find("ul", "about").li.text.split("Name: ")[1]
     else:
         info['full-name'] = "Name not available"
 
