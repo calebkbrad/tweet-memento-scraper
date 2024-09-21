@@ -42,11 +42,11 @@ def get_profile_nov_2006(content: BeautifulSoup) -> dict:
         tweet_info = {}
         date = tweet.find("span", "meta")
         if date:
-            tweet_info['date'] = date.text.strip()
+            tweet_info['date'] = date.text.strip().split("\n")[0]
             date.clear()
         else:
             date = tweet.find("p", "meta")
-            tweet_info['date'] = date.text.strip()
+            tweet_info['date'] = date.text.strip().split("\n")[0]
             date.clear()
         tweet.find("span", "meta").clear()
         if tweet.td.get("class"):
