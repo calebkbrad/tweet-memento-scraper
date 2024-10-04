@@ -18,14 +18,17 @@ def get_profile_aug_2007(content: BeautifulSoup) -> dict:
     """
     info = {}
     about = content.find("div", {"id": "side"})
-    # try:
-    #     info['handle'] = content.title.text.split("/ ")[1]
-    # except IndexError:
-    info['handle'] = content.find("div", "msg").strong.text.strip()
-    if 'Name:' in about.text:
-        info['full-name'] = about.find("ul", "about").li.text.split("Name: ")[1]
+    if content.find("div", "msg"):
+        info['handle'] = content.find("div", "msg").strong.text.strip()
     else:
-        info['full-name'] = "Name not available"
+        info['handle'] = content.find("h2", "thumb").text.strip()
+    if about.find("span", "fn"):
+        info['full-name'] = content.find("span", "fn").text.strip()
+    else:
+        if 'Name:' in about.text:
+            info['full-name'] = about.find("ul", "about").li.text.split("Name: ")[1]
+        else:
+            info['full-name'] = "Name not available"
 
     tweets = []
     latest_tweet = {}
