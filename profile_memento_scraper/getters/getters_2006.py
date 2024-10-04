@@ -1,9 +1,9 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-def get_profile_nov_2006(content: BeautifulSoup) -> dict:
+def get_profile_nov_2006_jul_2008(content: BeautifulSoup) -> dict:
     """
-    Get a profile's information circa  Nov/early Dec 2006.
+    Get a profile's information circa  Nov/early Dec 2006 to July 2008.
 
     Parameters
     ------------
@@ -18,7 +18,10 @@ def get_profile_nov_2006(content: BeautifulSoup) -> dict:
     """
     info = {}
     about = content.find("div", {"id": "side"})
-    info['handle'] = content.title.text.split("/ ")[1]
+    try:
+        info['handle'] = content.title.text.split("/ ")[1]
+    except IndexError:
+        info['handle'] = content.find("div", "msg").strong.text.strip()
     if 'Name:' in about.text:
         info['full-name'] = about.find("ul", "about").li.text.split("Name: ")[1]
     else:
