@@ -1,9 +1,9 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-def get_profile_feb_2009(content: BeautifulSoup) -> dict:
+def get_profile_dec_2009(content: BeautifulSoup) -> dict:
     """
-    Get a profile's information circa August 2008 to .
+    Get a profile's information circa August 2008 to November 2011.
 
     Parameters
     ------------

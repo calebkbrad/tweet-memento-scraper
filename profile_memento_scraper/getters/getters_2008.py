@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 def get_profile_oct_2008(content: BeautifulSoup) -> dict:
     """
-    Get a profile's information circa August 2008 to .
+    Get a profile's information circa August 2008 to around Feb 2009.
 
     Parameters
     ------------
