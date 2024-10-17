@@ -34,7 +34,7 @@ def get_profile_may_2012(content: BeautifulSoup) -> dict:
             tweets.append(tweet_info)
     elif content.find("span", "screen-name"):
         info['handle'] = content.find("span", "screen-name").text.strip().split("@")[1]
-        info['full-name'] = content.find("h1", "fullname").text.strip()
+        info['full-name'] = content.find("h1", "fullname").text.strip().split('\n')[0]
 
         tweet_list = content.find_all("div", "content")
         for tweet in tweet_list:
