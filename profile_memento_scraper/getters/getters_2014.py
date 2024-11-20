@@ -42,7 +42,7 @@ def get_profile_may_2014(content: BeautifulSoup) -> dict:
 
 def get_profile_jul_2014(content: BeautifulSoup) -> dict:
     """
-    Get a profile's information circa July 2014 to 
+    Get a profile's information circa July 2014 to May 29 2015
 
     Parameters
     ------------
