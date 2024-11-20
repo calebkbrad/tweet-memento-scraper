@@ -57,11 +57,10 @@ def get_profile_jul_2014(content: BeautifulSoup) -> dict:
     """
     info = {}
     tweets = []
-    info['handle'] = content.find("span", "u-linkComplex-target").text.strip()
+    info['handle'] = content.find("div", "ProfileCardMini-screenname").text.strip().split('@')[1]
     info['full-name'] = content.find("a", "ProfileHeaderCard-nameLink").text.strip()
 
     tweet_list = content.find_all("div", {"data-component-term": "tweet"})
-    print(len(tweet_list))
     for tweet in tweet_list:
         author = tweet.find("b", "ProfileTweet-fullname")
         tweet_text = tweet.find("p", "js-tweet-text")
