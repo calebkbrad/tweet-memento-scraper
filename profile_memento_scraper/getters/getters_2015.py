@@ -21,11 +21,11 @@ def get_profile_may_2015(content: BeautifulSoup) -> dict:
     info['handle'] = content.find("div", "ProfileCardMini-screenname").text.strip().split('@')[1]
     info['full-name'] = content.find("a", "ProfileHeaderCard-nameLink").text.strip()
     tweet_list = content.find_all("div", "content")
-    print(len(tweet_list))
+    # print(len(tweet_list))
     for tweet in tweet_list:
         author = tweet.find("strong", "fullname")
         tweet_text = tweet.find("p", "js-tweet-text")
-        if author and author.text.strip() != info['full-name']:
+        if author and author.text.strip().split('Verified account')[0] != info['full-name']:
             continue
         if not tweet_text:
             continue
