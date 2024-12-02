@@ -16,6 +16,9 @@ def get_profile_may_2015(content: BeautifulSoup) -> dict:
         handle: The current username of the user
         full-name: The current screen name of the user
     """
+    # Return none if the response is empty
+    if "Something went wrong, but don’t fret — let’s give it another shot." in content.text:
+        return None
     info = {}
     tweets = []
     info['handle'] = content.find("div", "ProfileCardMini-screenname").text.strip().split('@')[1]
