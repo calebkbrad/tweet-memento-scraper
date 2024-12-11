@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 def get_profile_may_2015(content: BeautifulSoup) -> dict:
     """
-    Get a profile's information circa May 29 2015 to 
+    Get a profile's information circa May 29 2015 to June 25 2022
 
     Parameters
     ------------
