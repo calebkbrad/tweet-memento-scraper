@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 def get_profile_jun_2022(content: BeautifulSoup) -> dict:
     """
-    Get a profile's information circa June 26 2022 to 
+    Get a profile's information circa June 26 2022 onwards
 
     Parameters
     ------------
@@ -25,7 +25,6 @@ def get_profile_jun_2022(content: BeautifulSoup) -> dict:
     for tweet in tweet_list:
         author = tweet.find("div", {"data-testid": "User-Names"})
         tweet_text = tweet.find("div", {"data-testid": "tweetText"})
-        # print(author.text)
         if author and author.text.strip().split('@')[0] != info['full-name']:
             continue
         if not tweet_text:
@@ -33,7 +32,6 @@ def get_profile_jun_2022(content: BeautifulSoup) -> dict:
         tweet_info = {}
         tweet_info['text'] = tweet_text.text.strip()
         tweet_info['date'] = tweet.find("time")['datetime']
-        # tweet_info['date'] = tweet.find("a", "tweet-timestamp")['title']
         tweets.append(tweet_info)
     info['tweets'] = tweets
 
