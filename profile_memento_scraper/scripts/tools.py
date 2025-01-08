@@ -98,16 +98,15 @@ def scrape_single_profile(uri: str):
 
     Parameters
     ----------
-    uri: A URI-R of a Twitter status URI from the Wayback Machine
+    uri: A URI-R of a Twitter profile page
 
     Returns
     ----------
     The dictionary representing a tweet with the following fields where possible, labelled by URI:
-    tweet-text: The tweet body
-    full-name: Full name of the tweet author
-    handle: Twitter handle of the tweet author
-    date: datetime of the date the tweet was made in iso. This field truncates precision from hour onwards
-    archived-at: datetime of the date the memento was archived in iso
+    full-name: Full name of the profile archived
+    handle: The handle of the profile archived
+    tweets: List of all the available tweets from the archived page. Each item contains the text of the tweet and the date it was made in iso format
+    archived-at: datetime of the date the memento was archived in iso format
     """
     print(f"Getting {uri}")
     response = requests.get(uri)
@@ -119,6 +118,7 @@ def scrape_single_profile(uri: str):
         raise ValueError("URI is archived after November 2023, scraping is not possible")
     info = getters_list[int(timeframe)](soup)
     info['archived-at'] = memento_datetime.isoformat()
+    convert_tweet_dates(info['tweets'])
     # if type(info['date']) == datetime:
     #     info['date'] = info['date'].isoformat()
     return info
@@ -158,6 +158,7 @@ def scrape_profile(uri: str, session: Session, fast: bool, wait_time: float = 5)
         raise ValueError("URI is archived after November 2023, scraping is not possible")
     info = getters_list[int(timeframe)](soup)
     info['archived-at'] = memento_datetime.isoformat()
+    convert_tweet_dates(info['tweets'])
     # if type(info['date']) == datetime:
     #     info['date'] = info['date'].isoformat()
     return info
@@ -168,7 +169,8 @@ def validate_date(date_string: str) -> datetime | None:
     Can only try against time formats that I know about, so if none match, then None will be returned
     """
     translator = Translator()
-    attempt_string = date_string
+    attempt_string = date_string.replace("st", "").replace("nd", "").replace("rd", "").replace("th", "")
+
     if 'en' not in translator.detect(attempt_string).lang:
         attempt_string = translator.translate(attempt_string).text.strip()
     formats = [
@@ -177,14 +179,24 @@ def validate_date(date_string: str) -> datetime | None:
         "%I:%M - %d %b %Y",
         "%I:%M %p - %d %b %y (%Z%z)",
         "%I:%M - %B %d, %Y",
-        "%I:%M - %d %b %Y"
+        "%I:%M - %d %b %Y",
+        "%I:%M %p %b %d, %Y"
     ]
     date = None
     for format in formats:
         try:
-            date = datetime.strptime(attempt_string, format).replace(hour=0, minute=0, tzinfo=None)
+            date = datetime.strptime(attempt_string, format)
             break
         except ValueError as er:
             # print(er)
             continue
     return date
+
+def convert_tweet_dates(tweets: list):
+    """
+    
+    """
+    for tweet in tweets:
+        converted_date = validate_date(tweet['date'])
+        if(type(converted_date)) == datetime:
+            tweet['date'] = converted_date.isoformat()
