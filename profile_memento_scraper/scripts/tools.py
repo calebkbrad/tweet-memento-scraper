@@ -3,6 +3,7 @@ from enum import IntEnum
 from requests import Response, Session
 from bs4 import BeautifulSoup
 from time import sleep
+from googletrans import Translator
 import requests
 from ..getters import getters_2006, getters_2007, getters_2008, getters_2009_2010, getters_2011, getters_2012_2013, getters_2014, getters_2015_2021, getters_2022
 
@@ -118,11 +119,11 @@ def scrape_single_profile(uri: str):
         raise ValueError("URI is archived after November 2023, scraping is not possible")
     info = getters_list[int(timeframe)](soup)
     info['archived-at'] = memento_datetime.isoformat()
-    if type(info['date']) == datetime:
-        info['date'] = info['date'].isoformat()
+    # if type(info['date']) == datetime:
+    #     info['date'] = info['date'].isoformat()
     return info
 
-def scrape_tweet(uri: str, session: Session, fast: bool, wait_time: float = 5) -> dict:
+def scrape_profile(uri: str, session: Session, fast: bool, wait_time: float = 5) -> dict:
     """
     Scrape the tweet for available info, return as dict
     This function also adds the memento's datetime header as the field 'archived-at'
@@ -157,6 +158,33 @@ def scrape_tweet(uri: str, session: Session, fast: bool, wait_time: float = 5) -
         raise ValueError("URI is archived after November 2023, scraping is not possible")
     info = getters_list[int(timeframe)](soup)
     info['archived-at'] = memento_datetime.isoformat()
-    if type(info['date']) == datetime:
-        info['date'] = info['date'].isoformat()
+    # if type(info['date']) == datetime:
+    #     info['date'] = info['date'].isoformat()
     return info
+
+def validate_date(date_string: str) -> datetime | None:
+    """
+    Attempt to validate the timestamp extracted from the page and return it as a datetime
+    Can only try against time formats that I know about, so if none match, then None will be returned
+    """
+    translator = Translator()
+    attempt_string = date_string
+    if 'en' not in translator.detect(attempt_string).lang:
+        attempt_string = translator.translate(attempt_string).text.strip()
+    formats = [
+        "%I:%M %p - %d %b %y",
+        "%I:%M %p - %d %b %Y",
+        "%I:%M - %d %b %Y",
+        "%I:%M %p - %d %b %y (%Z%z)",
+        "%I:%M - %B %d, %Y",
+        "%I:%M - %d %b %Y"
+    ]
+    date = None
+    for format in formats:
+        try:
+            date = datetime.strptime(attempt_string, format).replace(hour=0, minute=0, tzinfo=None)
+            break
+        except ValueError as er:
+            # print(er)
+            continue
+    return date

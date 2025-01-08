@@ -15,7 +15,9 @@ setup(
         'console_scripts': [
             'test_script = tweet_memento_scraper.scripts.main:cli',
             'scrape_tweet_memento = tweet_memento_scraper.scripts.main:scrape_tweet_memento',
-            'scrape_tweet_mementos = tweet_memento_scraper.scripts.main:scrape_tweet_mementos' 
+            'scrape_tweet_mementos = tweet_memento_scraper.scripts.main:scrape_tweet_mementos',
+            'scrape_profile_memento = profile_memento_scraper.scripts.main:scrape_profile_memento',
+            'scrape_profile_mementos = profile_memento_scraper.scripts.main:scrape_profile_mementos'
         ],
     },
 )
