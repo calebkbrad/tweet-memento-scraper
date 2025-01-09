@@ -24,7 +24,6 @@ def scrape_profile_memento(uri: str, output:click.File):
         profile = tools.scrape_single_profile(uri)
     except Exception as e:
         profile = {"Error": {repr(e)}}
-    print(profile)
     json.dump(profile, output, indent=3)
     
 
