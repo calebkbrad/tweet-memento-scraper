@@ -7,7 +7,7 @@
 pyvenv.cfg
 .venv
 pip-selfcheck.json
-tweet_memento_scraper/__pycache__
-tweet_memento_scraper/*/__pycache__
+*/__pycache__
+*/*/__pycache__
 .pytest_cache
 tweet_memento_scraper.egg-info
