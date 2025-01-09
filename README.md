@@ -1,9 +1,9 @@
 # tweet-memento-scraper  
-A command line tool for scraping a Twitter status URI-M for info about that tweet  
+Command line tools for scraping relevant info from Twitter status and profile URLs from archives, regardless of time of archival.
 
 ## Usage
 
-### Installing the tool locally with git  
+### Installing the tools locally with git  
 1. Setup venv (optional but I would recommend it)
    1. Create venv
    ```
@@ -24,8 +24,8 @@ A command line tool for scraping a Twitter status URI-M for info about that twee
     ~/pip install --editable .
    ```
 
-### Using the tool for a single uri  
-Use the scrape_tweet_memento command for scraping a single given URI.
+### Using the tools for a single uri  
+Use the scrape_tweet_memento command for scraping a single given status URI.
 ```
 ~/scrape_tweet_memento http://web.archive.org/web/20170409141941/https://twitter.com/jack/status/20
 ```  
@@ -39,8 +39,59 @@ The above command should produce the following JSON content in a file named outp
    "archived-at": "2017-04-09T14:19:41"
 }  
 ```  
-### Using the tool for multiple URIs in a text file  
-Use the scrape_tweet_mementos command for scraping URIs given in a text file delimited with white space  
+
+Use the scrape_profile_memento command for scraping a single given profile URI.  
+```
+~/scrape_profile_memento https://web.archive.org/web/20090101113614/twitter.com/jack
+```   
+The above command should produce the following JSON content in a file named output.json  
+```
+{
+   "handle": "jack",
+   "full-name": "Jack Dorsey",
+   "tweets": [
+      {
+         "text": "Happy New Year, Twitter.",
+         "date": "about 4 hours ago"
+      },
+      {
+         "text": "In a winebago.",
+         "date": "about 5 hours ago"
+      },
+      {
+         "text": "Champagne tasting on the roof",
+         "date": "about 7 hours ago"
+      },
+      {
+         "text": "Good day to pick up my champagne of the month club.  4 bottles to add to the 17.",
+         "date": "about 12 hours ago"
+      },
+      {
+         "text": "NYE 2007, Twitter was young, & I stayed home with a fever as I watched a daemon I wrote send New Year's nudges around the world at midnight.",
+         "date": "about 17 hours ago"
+      },
+      {
+         "text": "Hello, San Francisco.",
+         "date": "2008-12-30T17:49:00"
+      },
+      {
+         "text": "Headed to the airport after breakfast at grandma's",
+         "date": "2008-12-30T06:27:00"
+      },
+      {
+         "text": "There's an entire universe in the smallest of things, even those mundane. I need a haircut.",
+         "date": "2008-12-29T18:54:00"
+      },
+      .
+      .
+      .
+      Full list of tweets redacted, usually returns up to 20 tweets
+   ]
+   "archived-at": "2009-01-01T11:36:14"
+}
+```
+### Using the tools for multiple URIs in a text file  
+Use the scrape_tweet_mementos command for scraping status URIs given in a text file delimited with white space  
 ```
 scrape_tweet_mementos sample.txt  
 ```  
@@ -76,8 +127,12 @@ The above command (given the sample.txt [here](sample.txt)) should produce the f
       "archived-at": "2014-01-09T18:36:06"
    }
 }
+```   
+Use the scrape_profile_mementos command for scraping status URIs given in a text file delimited with white space  
+```  
+~/scrape_profile_mementos profile_sample.txt   
 ```
-By default, this command will wait 5 seconds between requests to ease the load on the Wayback Machine and to reduce the number of connection refusals. To change the number of seconds to wait between requests, use the w (waittime) flag like so  
+By default, these commands will wait 5 seconds between requests to ease the load on the Wayback Machine and to reduce the number of connection refusals. To change the number of seconds to wait between requests, use the w (waittime) flag like so  
 ```
 scrape_tweet_mementos sample.txt -w 10
 ```  
@@ -92,4 +147,8 @@ This makes every request sequentially without waiting. This should only be done 
 Both commands support changing of output file name with the -o flag, like below  
 ```
 scrape_tweet_memento http://web.archive.org/web/20170409141941/https://twitter.com/jack/status/20 -o some_other_file.json  
-```
+```   
+
+## Notes of known issues  
+- In some situations and timeframes, only relative timestamps are available (e.g., 4 hours ago) so these timestamps are left alone, as an ISO format absolute timestamp cannot be created. This is also the case for absolute timestamps that are unknown (let me know about these and I can easily correct for this).
+- 
